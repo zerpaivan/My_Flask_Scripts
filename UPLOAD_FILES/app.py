@@ -4,9 +4,13 @@ from flask import Flask
 from flask import render_template, request, flash, redirect
 from werkzeug.utils import secure_filename 
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'git'}
+UPLOAD_FOLDER = 'static/uploads/' # carpeta donde se cargan los archivos
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'git'} # Extensiones permitidas
 app = Flask(__name__)
 app.secret_key = "secret key" # es requerido por el comando flash
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16megas max tamaño del archivo
 
 # funcion para verificar si el archivo esta permitido
 # separa la extension del nombre del archivo con rsplit()
@@ -33,7 +37,7 @@ def upload_image():
         return redirect(request.url)
 
     file = request.files['file_to_upload']
-    
+    # print(file)
     # verifica si se a seleccionado un archivo
     if file.filename == '':
         flash('No image selected for uploading')
@@ -43,7 +47,13 @@ def upload_image():
     # nombre del archivo con secure_filename. NUNCA CONFIES EN EL USUARIO
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # print('upload_image_filename: ', filename)
+        flash('image successfully uploaded and displayed below')
+        return render_template('index.html', filename=filename)
+    else:
+        flash('Allowed image types are: png, jpg, jpeg, git')
+        return redirect(request.url)
 
 
 if __name__== '__main__':
