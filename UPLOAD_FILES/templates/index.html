@@ -4,6 +4,26 @@
     <title>Upload file</title>
 </head>
 <body>
-    Hello world
+    <!-- Bloque para mostrar el mensaje flash -->
+    <p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+
+    </p>
+    <!-- --------------------------------------------- -->
+
+    <h2>Upload File</h2>
+    <form action="/" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="file_to_upload">
+        <input type="submit" value="Dale pues">
+    </form>
 </body>
 </html>
