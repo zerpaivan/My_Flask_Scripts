@@ -3,6 +3,7 @@
 <head>
     <title>Upload file</title>
 </head>
+<h2>Select a file to upload</h2>
 <body>
     <!-- Bloque para mostrar el mensaje flash -->
     <p>
@@ -18,12 +19,20 @@
 
     </p>
     <!-- --------------------------------------------- -->
-
+    
     <h2>Upload File</h2>
     <form action="/" method="POST" enctype="multipart/form-data">
 
         <input type="file" name="file_to_upload">
         <input type="submit" value="Dale pues">
     </form>
+
+    <!-- Esta parte es para mostrar la imagen -->
+    {% if filename %}
+        <section>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </section>
+    {% endif %}
+    
 </body>
 </html>

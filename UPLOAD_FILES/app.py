@@ -1,7 +1,7 @@
 import os
 # Creacion de Servidor
 from flask import Flask
-from flask import render_template, request, flash, redirect
+from flask import render_template, request, flash, redirect, url_for
 from werkzeug.utils import secure_filename 
 
 UPLOAD_FOLDER = 'static/uploads/' # carpeta donde se cargan los archivos
@@ -25,7 +25,7 @@ def allowed_file(filename:str):
         return False
 
 
-@app.route('/') # cargar form
+@app.route('/') # cargar form. renderisar el html del formulario
 def index():
     return render_template('index.html')
 
@@ -37,7 +37,7 @@ def upload_image():
         return redirect(request.url)
 
     file = request.files['file_to_upload']
-    # print(file)
+
     # verifica si se a seleccionado un archivo
     if file.filename == '':
         flash('No image selected for uploading')
@@ -55,6 +55,10 @@ def upload_image():
         flash('Allowed image types are: png, jpg, jpeg, git')
         return redirect(request.url)
 
+@app.route('/display/<filename>')
+def display_image(filename):
+    print('display_image filename: ' + filename)
+    return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
 if __name__== '__main__':
     app.run(debug=True)
