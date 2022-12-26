@@ -27,5 +27,19 @@ def display():
         # se envian la data(de result) para resul_data.html
         return render_template('result_data.html', result=result)
 
+# Utilizacion de metodo GET
+# la url debe ser: localhost:5000?name=Ivan
+@app.route('/hello')
+def hello_name():
+    name = request.args.get('name')
+    return f"<h2> hola que tal {name} </h2>"
+
+# la url debe ser: localhost:5000/Ivan
+@app.route('/hello')
+@app.route('/hello2/<name>')
+def hello_name2(name):
+    return f"hey amigo {name}"
+
+
 if __name__ == '__main__':
     app.run(debug=True)
