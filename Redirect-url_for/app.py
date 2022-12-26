@@ -1,3 +1,7 @@
+# redirect() : se utiliza para redirigir a un usuario a otro endpoint (una url especifica)
+# url_for(): se utiliza para generar la url a partir  de una funcion especificada
+# ejemplos:
+
 from flask import Flask, redirect, url_for
 
 app = Flask(__name__)
