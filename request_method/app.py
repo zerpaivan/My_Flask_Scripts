@@ -35,7 +35,6 @@ def hello_name():
     return f"<h2> hola que tal {name} </h2>"
 
 # la url debe ser: localhost:5000/Ivan
-@app.route('/hello')
 @app.route('/hello2/<name>')
 def hello_name2(name):
     return f"hey amigo {name}"
