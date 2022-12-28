@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>flash messages</title>
+</head>
+<body>
+    {% if numero %}
+        <p>El numero es {{numero}}</p>
+    {% endif %}
+    
+    <!-- Parte del codigo que se encarga de mostrar el mensaje flash -->
+    <!-- en la pagina web -->
+    {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    <!-- ------------------------------------------------------------- -->
+</body>
+</html>
